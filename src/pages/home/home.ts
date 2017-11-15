@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CameraPreview, CameraPreviewPictureOptions } from '@ionic-native/camera-preview';
+import { LoadingController } from 'ionic-angular';
 
 
 @Component({
@@ -8,11 +9,11 @@ import { CameraPreview, CameraPreviewPictureOptions } from '@ionic-native/camera
   templateUrl: 'home.html'
 })
 export class HomePage {
-  cameraPreview;
   picture;
+  info;
 
-  constructor(public navCtrl: NavController, cameraPreview: CameraPreview) {
-    this.cameraPreview = cameraPreview;
+  constructor(public navCtrl: NavController, public cameraPreview: CameraPreview, public loadingCtrl: LoadingController) {
+    this.info = 'Capture Image';
   }
 
   capture() {
@@ -25,12 +26,22 @@ export class HomePage {
 
     // take a picture
     this.cameraPreview.takePicture(pictureOpts).then((imageData) => {
+      this.presentLoading();
       this.picture = 'data:image/jpeg;base64,' + imageData;
+      this.info = 'Image Captured';
       console.log('Capture image success');
     }, (err) => {
       console.log('Capture image failed');
       console.log(err);
     });
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Processing image...",
+      duration: 2000
+    });
+    loader.present();
   }
 
 }
