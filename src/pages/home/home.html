@@ -1,18 +1,28 @@
 <ion-content>
-  <ion-card>
+  <ion-card text-center>
 
     <ion-card-header>
-      
+      INFO
     </ion-card-header>
+    <div>
+    {{info}} <br/>
+    {{type}} <br/>
+    {{costPrice}} <br/>
+    {{weeklySales}} <br/>
+    {{seasonSales}} <br/>
+    {{monthlySales}}
+    </div>
 
-    <ion-card-content>
-        {{info}}
-    </ion-card-content>
+    <img src={{imageLocation}}>
 
   </ion-card>
-  <ion-fab center bottom small>
-    <button (click)="capture()" ion-fab color="light">
-      <ion-icon name="camera"></ion-icon>
-    </button>
+
+  <ion-fab right bottom>
+    <button ion-fab color="twitter"><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab (click)="capture()"><ion-icon name="camera"></ion-icon></button>
+      <button ion-fab (click)="closeDiv()"><ion-icon name="undo"></ion-icon></button>
+      <button ion-fab (click)="switchCamera()"><ion-icon name="sync"></ion-icon></button>
+    </ion-fab-list>
   </ion-fab>
 </ion-content>
